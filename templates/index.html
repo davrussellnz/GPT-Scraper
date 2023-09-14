@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPT Scraper</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Gradient Background */
+        body {
+            background: linear-gradient(to bottom, #FFEB3B, #FF5722);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        /* Centered Form */
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+        /* Title Styling */
+        .title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        /* Summary Content Styling */
+        .summary-content {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 4px;
+        }
+    </style>
+    <script>
+        function updateSelectorRequired() {
+            var selectorType = document.getElementById("selector_type").value;
+            var selectorInput = document.getElementById("selector");
+            if (selectorType === "all_text") {
+                selectorInput.removeAttribute("required");
+            } else {
+                selectorInput.setAttribute("required", "");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container form-container">
+        <!-- Title Section -->
+        <div class="title">
+            GPT Scraper
+        </div>
+        <form action="/" method="post">
+            <div class="form-group">
+                <label for="api_key">OpenAI API Key:</label>
+                <input type="text" id="api_key" name="api_key" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="url">URL:</label>
+                <input type="text" id="url" name="url" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="selector_type">Selector Type:</label>
+                <select id="selector_type" name="selector_type" class="form-control" onchange="updateSelectorRequired()">
+                    <option value="css">CSS</option>
+                    <option value="xpath">XPath</option>
+                    <option value="div">Div</option>
+                    <option value="all_text">All Text</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="selector">Selector:</label>
+                <input type="text" id="selector" name="selector" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Summarize</button>
+        </form>
+        <h2 class="mt-5">Summary:</h2>
+        <div class="summary-content">
+            {{ summary }}
+        </div>
+    </div>
+    <!-- Optional JavaScript for Bootstrap; jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
